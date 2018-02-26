@@ -64,8 +64,8 @@ public class Sparql_dl_crowd
 	        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
                 // Load ontology from Ontology File (owl 2 document)
-                File in = new File("/home/gab/Documentos/crowd/SPARQL-DL/crowd.owl");
-                File out = new File("/home/gab/Documentos/crowd/SPARQL-DL/crowdsparqldl.json");
+                File in = new File("/var/www/html/wicom-qdod/run/crowd.owl");
+                File out = new File("/var/www/html/wicom-qdod/run/crowdsparqldl.json");
                 out.createNewFile();
 
                 OWLOntology ont = manager.loadOntologyFromOntologyDocument(in);                   
@@ -282,7 +282,7 @@ public class Sparql_dl_crowd
 			System.out.print(result.toJSON());
                         
                         try (
-                            BufferedWriter writer = new BufferedWriter(new FileWriter("/home/gab/Documentos/crowd/SPARQL-DL/crowdsparqldl.json",true)))
+                            BufferedWriter writer = new BufferedWriter(new FileWriter("/var/www/html/wicom-qdod/run/crowdsparqldl.json",true)))
                         {
                                 writer.append("\n");
                                 writer.write(result.toJSON());
