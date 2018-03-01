@@ -284,7 +284,7 @@ public class Sparql_dl_crowd
                         try (
                             BufferedWriter writer = new BufferedWriter(new FileWriter("/var/www/html/wicom-qdod/run/crowdsparqldl.json",true)))
                         {
-                                //writer.append("\n");
+                                writer.append("queryresults:");
                                 writer.write(result.toJSON());
                         }
                         catch(IOException e) {
