@@ -102,88 +102,88 @@ public class Sparql_dl_crowd
                         // Get Domain for each ObjectProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?objectproperty ?domain WHERE {\n" +
+				"SELECT DISTINCT ?objectproperty ?domainop WHERE {\n" +
                                         "ObjectProperty(?objectproperty), \n" +
-					"Domain(?objectproperty,?domain)" +
+					"Domain(?objectproperty,?domainop)" +
 				"}"
 			);
                         
                         // Get Range for each ObjectProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?objectproperty ?range WHERE {\n" +
+				"SELECT DISTINCT ?objectproperty ?rangeop WHERE {\n" +
                                         "ObjectProperty(?objectproperty), \n" +
-					"Range(?objectproperty,?range)" +
+					"Range(?objectproperty,?rangeop)" +
 				"}"
 			);
                         
                         // Get Direct and Strict SubClasses for each Class
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?strictsub ?class WHERE {\n" +
-                                        "DirectSubClassOf(?strictsub,?class), \n" +
-                                        "StrictSubClassOf(?strictsub,?class)" +
+				"SELECT DISTINCT ?strictsub ?strictsupclass WHERE {\n" +
+                                        "DirectSubClassOf(?strictsub,?strictsupclass), \n" +
+                                        "StrictSubClassOf(?strictsub,?strictsupclass)" +
 				"}"
 			);
                         
                         // Get Direct SubClasses for each Class
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?directsub ?class WHERE {\n" +
-                                        "DirectSubClassOf(?directsub,?class)" +
+				"SELECT DISTINCT ?directsub ?supclass WHERE {\n" +
+                                        "DirectSubClassOf(?directsub,?supclass)" +
 				"}"
 			);
                         
                         // Get Direct and Strict ObjectProperties for each ObjectProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?subobjectproperty ?objectproperty WHERE {\n" +
-                                        "DirectSubPropertyOf(?subobjectproperty,?objectproperty), \n" +
-                                        "StrictSubPropertyOf(?subobjectproperty,?objectproperty)" +
+				"SELECT DISTINCT ?subobjectproperty ?strictsupobjectproperty WHERE {\n" +
+                                        "DirectSubPropertyOf(?subobjectproperty,?strictsupobjectproperty), \n" +
+                                        "StrictSubPropertyOf(?subobjectproperty,?strictsupobjectproperty)" +
 				"}"
 			);
                         
                         // Get Direct SubProperties for each SubProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?subobjectproperty ?objectproperty WHERE {\n" +
-                                        "DirectSubPropertyOf(?subobjectproperty,?objectproperty)" +
+				"SELECT DISTINCT ?subobjectproperty ?supobjectproperty WHERE {\n" +
+                                        "DirectSubPropertyOf(?subobjectproperty,?supobjectproperty)" +
 				"}"
 			);
                         
                         // Get Equivalent Classes
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?class1 ?class2 WHERE {\n" +
-                                        "EquivalentClass(?class1,?class2)" +
+				"SELECT DISTINCT ?classeq1 ?classeq WHERE {\n" +
+                                        "EquivalentClass(?classeq1,?classeq)" +
 				"}"
 			);
                         
                         // Get Disjoint Classes
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?class1 ?class2 WHERE {\n" +
-                                        "Class(?class1), \n" +
-                                        "Class(?class2), \n" +
-                                        "DisjointWith(?class1,?class2)" +
+				"SELECT DISTINCT ?classdis1 ?classdis WHERE {\n" +
+                                        "Class(?classdis1), \n" +
+                                        "Class(?classdis), \n" +
+                                        "DisjointWith(?classdis1,?classdis)" +
 				"}"
 			);
                         
                         // Get Equivalent ObjectProperties
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?objectproperty1 ?objectproperty2 WHERE {\n" +
-                                        "EquivalentProperty(?objectproperty1,?objectproperty2)" +
+				"SELECT DISTINCT ?objectpropertyeq1 ?objectpropertyeq WHERE {\n" +
+                                        "EquivalentProperty(?objectpropertyeq1,?objectpropertyeq)" +
 				"}"
 			);
                         
                         // Get Disjoint ObjectProperties
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?objectproperty1 ?objectproperty2 WHERE {\n" +
-                                        "ObjectProperty(?objectproperty1), \n" +
-                                        "ObjectProperty(?objectproperty2), \n" +
-                                        "DisjointWith(?objectproperty1,?objectproperty2)" +
+				"SELECT DISTINCT ?objectpropertydis1 ?objectpropertydis WHERE {\n" +
+                                        "ObjectProperty(?objectpropertydis1), \n" +
+                                        "ObjectProperty(?objectpropertydis), \n" +
+                                        "DisjointWith(?objectpropertydis1,?objectpropertydis)" +
 				"}"
 			);
                         
@@ -198,18 +198,18 @@ public class Sparql_dl_crowd
                         // Get Domain for each DataProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?dataproperty ?domain WHERE {\n" +
+				"SELECT DISTINCT ?dataproperty ?domaindp WHERE {\n" +
                                         "DataProperty(?dataproperty), \n" +
-					"Domain(?dataproperty,?domain)" +
+					"Domain(?dataproperty,?domaindp)" +
 				"}"
 			);
                         
                         // Get Range for each DataProperty
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
-				"SELECT DISTINCT ?dataproperty ?range WHERE {\n" +
+				"SELECT DISTINCT ?dataproperty ?rangedp WHERE {\n" +
                                         "DataProperty(?dataproperty), \n" +
-					"Range(?dataproperty,?range)" +
+					"Range(?dataproperty,?rangedp)" +
 				"}"
 			);
                         
@@ -219,22 +219,22 @@ public class Sparql_dl_crowd
 			processQuery(
 				"PREFIX crowd: <http://localhost/kb1#>\n" +
                                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-				"SELECT ?class ?id ?x ?y WHERE {\n" +
-                                    "Class(?class), \n" +
-				    "Annotation(?class, crowd:ot_name_ann, ?id), \n" +
-                                    "Annotation(?class, crowd:X, ?x), \n" +
-                                    "Annotation(?class, crowd:Y, ?y)" +
+				"SELECT ?classann ?id ?x ?y WHERE {\n" +
+                                    "Class(?classann), \n" +
+				    "Annotation(?classann, crowd:ot_name_ann, ?id), \n" +
+                                    "Annotation(?classann, crowd:X, ?x), \n" +
+                                    "Annotation(?classann, crowd:Y, ?y)" +
 				"}"	
 			);
                         
                         processQuery(
 				"PREFIX crowd: <http://localhost/kb1#>\n" +
                                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-				"SELECT ?objectproperty ?id ?x ?y WHERE {\n" +
-                                    "ObjectProperty(?objectproperty), \n" +
-				    "Annotation(?objectproperty, crowd:rel_name_ann, ?id), \n" +
-                                    "Annotation(?objectproperty, crowd:X, ?x), \n" +
-                                    "Annotation(?objectproperty, crowd:Y, ?y)" +
+				"SELECT ?objectpropertyann ?id ?x ?y WHERE {\n" +
+                                    "ObjectProperty(?objectpropertyann), \n" +
+				    "Annotation(?objectpropertyann, crowd:rel_name_ann, ?id), \n" +
+                                    "Annotation(?objectpropertyann, crowd:X, ?x), \n" +
+                                    "Annotation(?objectpropertyann, crowd:Y, ?y)" +
 				"}"	
 			);
                         
