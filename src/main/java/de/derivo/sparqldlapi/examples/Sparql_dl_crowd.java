@@ -36,6 +36,8 @@ import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassExpressionImpl;
 
+import java.util.UUID;
+
 
 
 /**
@@ -56,7 +58,7 @@ public class Sparql_dl_crowd
 	 * @param ontologyDocument
      * @throws java.io.IOException
 	 */
-	public static void main(String[] ontologyDocument) throws IOException 
+	public static void main(String[] files) throws IOException 
 	{
 		try {
                     
@@ -64,8 +66,12 @@ public class Sparql_dl_crowd
 	        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
                 // Load ontology from Ontology File (owl 2 document)
-                File in = new File("/var/www/html/wicom-qdod/run/crowd.owl");
-                File out = new File("/var/www/html/wicom-qdod/run/crowdsparqldl.json");
+	
+                //File in = new File("/var/www/html/wicom-qdod/run/crowd.owl");
+                //File out = new File("/var/www/html/wicom-qdod/run/crowdsparqldl.json");
+
+                File in = new File(files[0]);
+                File out = new File(files[1]);
                 out.createNewFile();
 
                 OWLOntology ont = manager.loadOntologyFromOntologyDocument(in);                   
@@ -89,14 +95,14 @@ public class Sparql_dl_crowd
                         processQuery(
 				"SELECT ?class WHERE {\n" +
 					"Class(?class)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get all ObjectProperties from crowd ontology
                         processQuery(
 				"SELECT ?objectproperty WHERE {\n" +
 					"ObjectProperty(?objectproperty)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Domain for each ObjectProperty
@@ -105,7 +111,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?objectproperty ?domainop WHERE {\n" +
                                         "ObjectProperty(?objectproperty), \n" +
 					"Domain(?objectproperty,?domainop)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Range for each ObjectProperty
@@ -114,7 +120,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?objectproperty ?rangeop WHERE {\n" +
                                         "ObjectProperty(?objectproperty), \n" +
 					"Range(?objectproperty,?rangeop)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Direct and Strict SubClasses for each Class
@@ -123,7 +129,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?strictsub ?strictsupclass WHERE {\n" +
                                         "DirectSubClassOf(?strictsub,?strictsupclass), \n" +
                                         "StrictSubClassOf(?strictsub,?strictsupclass)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Direct SubClasses for each Class
@@ -131,7 +137,7 @@ public class Sparql_dl_crowd
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?directsub ?supclass WHERE {\n" +
                                         "DirectSubClassOf(?directsub,?supclass)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Direct and Strict ObjectProperties for each ObjectProperty
@@ -140,7 +146,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?subobjectproperty ?strictsupobjectproperty WHERE {\n" +
                                         "DirectSubPropertyOf(?subobjectproperty,?strictsupobjectproperty), \n" +
                                         "StrictSubPropertyOf(?subobjectproperty,?strictsupobjectproperty)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Direct SubProperties for each SubProperty
@@ -148,7 +154,7 @@ public class Sparql_dl_crowd
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?subobjectproperty ?supobjectproperty WHERE {\n" +
                                         "DirectSubPropertyOf(?subobjectproperty,?supobjectproperty)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Equivalent Classes
@@ -156,28 +162,28 @@ public class Sparql_dl_crowd
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?classeq1 ?classeq WHERE {\n" +
                                         "EquivalentClass(?classeq1,?classeq)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Disjoint Classes
-			processQuery(
+/*			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?classdis1 ?classdis WHERE {\n" +
                                         "Class(?classdis1), \n" +
                                         "Class(?classdis), \n" +
                                         "DisjointWith(?classdis1,?classdis)" +
 				"}"
-			);
+			);  */
                         
                         // Get Equivalent ObjectProperties
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?objectpropertyeq1 ?objectpropertyeq WHERE {\n" +
                                         "EquivalentProperty(?objectpropertyeq1,?objectpropertyeq)" +
-				"}"
+				"}", files[1]
 			);
                         
-                        // Get Disjoint ObjectProperties
+/*                        // Get Disjoint ObjectProperties
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?objectpropertydis1 ?objectpropertydis WHERE {\n" +
@@ -185,14 +191,14 @@ public class Sparql_dl_crowd
                                         "ObjectProperty(?objectpropertydis), \n" +
                                         "DisjointWith(?objectpropertydis1,?objectpropertydis)" +
 				"}"
-			);
+			); */
                         
                         // Get all DataProperties
 			processQuery(
                                 "PREFIX crowd: <http://localhost/kb1#>\n" + 
 				"SELECT DISTINCT ?dataproperty WHERE {\n" +
                                         "DataProperty(?dataproperty)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Domain for each DataProperty
@@ -201,7 +207,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?dataproperty ?domaindp WHERE {\n" +
                                         "DataProperty(?dataproperty), \n" +
 					"Domain(?dataproperty,?domaindp)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // Get Range for each DataProperty
@@ -210,7 +216,7 @@ public class Sparql_dl_crowd
 				"SELECT DISTINCT ?dataproperty ?rangedp WHERE {\n" +
                                         "DataProperty(?dataproperty), \n" +
 					"Range(?dataproperty,?rangedp)" +
-				"}"
+				"}", files[1]
 			);
                         
                         // These queries apply only for annotations generated in crowd
@@ -224,7 +230,7 @@ public class Sparql_dl_crowd
 				    "Annotation(?classann, crowd:ot_name_ann, ?id), \n" +
                                     "Annotation(?classann, crowd:X, ?x), \n" +
                                     "Annotation(?classann, crowd:Y, ?y)" +
-				"}"	
+				"}", files[1]
 			);
                         
                         processQuery(
@@ -235,7 +241,7 @@ public class Sparql_dl_crowd
 				    "Annotation(?objectpropertyann, crowd:rel_name_ann, ?id), \n" +
                                     "Annotation(?objectpropertyann, crowd:X, ?x), \n" +
                                     "Annotation(?objectpropertyann, crowd:Y, ?y)" +
-				"}"	
+				"}", files[1]
 			);
                         
                            
@@ -252,7 +258,7 @@ public class Sparql_dl_crowd
         }
 	}
 	
-	public static void processQuery(String q) throws IOException
+	public static void processQuery(String q, String fileout) throws IOException
 	{
 		try {
 			long startTime = System.currentTimeMillis();
@@ -282,7 +288,8 @@ public class Sparql_dl_crowd
 			System.out.print(result.toJSON());
                         
                         try (
-                            BufferedWriter writer = new BufferedWriter(new FileWriter("/var/www/html/wicom-qdod/run/crowdsparqldl.json",true)))
+//                            BufferedWriter writer = new BufferedWriter(new FileWriter("/var/www/html/wicom-qdod/run/crowdsparqldl.json",true)))
+                            BufferedWriter writer = new BufferedWriter(new FileWriter(fileout,true)))
                         {
                                 writer.append("queryresults:");
                                 writer.write(result.toJSON());
